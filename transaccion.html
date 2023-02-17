@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
-<body>
+<label for="producto">Producto:</label>
 <select id="lista">
     <option value="10" data-cantidad="1">Opción 1</option>
     <option value="20" data-cantidad="1">Opción 2</option>
@@ -17,6 +17,7 @@
 <input type="number" id="cantidad">
 
 <button onclick="multiplicar()">Multiplicar</button>
+<p>El resultado es: <span id="resultado"></span></p>
 
 <script>
     function multiplicar() {
@@ -38,7 +39,8 @@
       var resultado = valorTotal * cantidad;
     
       // Muestra el resultado en la página
-      alert("El resultado es: " + resultado);
+      //alert("El resultado es: " + resultado);
+      document.getElementById("resultado").innerHTML = resultado;
     }
     </script>
 </body>
