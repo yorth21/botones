@@ -7,30 +7,36 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Boton maps</title>
     <link rel="stylesheet" href="estilos.css">
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAkT7nxckPqliaRWQ_r0GtuH-bvXfAA0Hg&callback=initMap" async defer></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAkT7nxckPqliaRWQ_r0GtuH-bvXfAA0Hg"></script>
+</head>
+<body>
+
+    <section>
+        <h2>Buscar direccion</h2>
+        <form>
+            <input type="text" id="ubicacion" placeholder="Ingrese una ubicación">
+            <button type="button" onclick="buscarUbicacion()">Buscar</button>
+        </form>
+
+        <iframe id="mapa" width="600" height="450" frameborder="0" style="border:0" src="https://www.google.com/maps/embed/v1/view?key=AIzaSyAkT7nxckPqliaRWQ_r0GtuH-bvXfAA0Hg &center=0,0&zoom=2"></iframe>
+    </section>
 
     <script>
-        function initMap() {
-            const map = new google.maps.Map(document.getElementById("map"), {
-                center: { lat: 40.7128, lng: -74.006 },
-                zoom: 12,
+        function buscarUbicacion() {
+            var ubicacion = document.getElementById('ubicacion').value;
+            var geocoder = new google.maps.Geocoder();
+            geocoder.geocode({ 'address': ubicacion }, function(results, status) {
+                if (status == google.maps.GeocoderStatus.OK) {
+                    var latitud = results[0].geometry.location.lat();
+                    var longitud = results[0].geometry.location.lng();
+                    var iframeMap = document.getElementById('mapa');
+                    iframeMap.src = 'https://www.google.com/maps/embed/v1/view?key=AIzaSyAkT7nxckPqliaRWQ_r0GtuH-bvXfAA0Hg&center=' + latitud + ',' + longitud + '&zoom=14';
+                } else {
+                    alert('No se pudo encontrar la ubicación ingresada.');
+                }
             });
         }
     </script>
 
-</head>
-
-<body>
-    <h2>Boton de maps </h2>
-
-    <form onsubmit="searchLocation(event)">
-        <input type="text" id="location" placeholder="Ingrese la ubicación">
-        <button type="submit">Buscar</button>
-    </form>
-
-    <div id="map"></div>
-
-
 </body>
-
-</html>
+</html>        
